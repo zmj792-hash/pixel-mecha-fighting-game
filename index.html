@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素风机甲对战</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            color: #eee;
+        }
+        h1 {
+            color: #ff6b6b;
+            text-shadow: 2px 2px #4a4a4a;
+            margin-bottom: 10px;
+            font-size: 28px;
+            letter-spacing: 4px;
+        }
+        #gameContainer {
+            position: relative;
+            border: 4px solid #4a4a4a;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+        canvas {
+            display: block;
+            image-rendering: pixelated;
+        }
+        #ui {
+            display: flex;
+            justify-content: space-between;
+            width: 800px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #2a2a3e;
+            border: 2px solid #4a4a4a;
+        }
+        .player-info {
+            text-align: center;
+            flex: 1;
+        }
+        .player-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .p1-color { color: #4ecdc4; }
+        .p2-color { color: #ff6b6b; }
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background: #333;
+            border: 2px solid #666;
+            margin: 0 auto;
+            position: relative;
+        }
+        .health-fill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+        .p1-health { background: linear-gradient(90deg, #2ecc71, #4ecdc4); }
+        .p2-health { background: linear-gradient(90deg, #e74c3c, #ff6b6b); }
+        .health-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            color: white;
+            text-shadow: 1px 1px #000;
+        }
+        #controls {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+        #controls span {
+            margin: 0 15px;
+        }
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffd93d;
+            text-shadow: 3px 3px #000;
+            display: none;
+            z-index: 10;
+        }
+        #restartBtn {
+            margin-top: 10px;
+            padding: 10px 30px;
+            font-size: 16px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            display: none;
+        }
+        #restartBtn:hover {
+            background: #ff8787;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚔️ 像素机甲对战 ⚔️</h1>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="message"></div>
+    </div>
+    <div id="ui">
+        <div class="player-info">
+            <div class="player-name p1-color">🤖 蓝甲战士 (P1)</div>
+            <div class="health-bar">
+                <div class="health-fill p1-health" id="p1Health" style="width: 100%"></div>
+                <div class="health-text" id="p1HealthText">100 / 100</div>
+            </div>
+        </div>
+        <div class="player-info">
+            <div class="player-name p2-color">🤖 红甲战士 (P2)</div>
+            <div class="health-bar">
+                <div class="health-fill p2-health" id="p2Health" style="width: 100%"></div>
+                <div class="health-text" id="p2HealthText">100 / 100</div>
+            </div>
+        </div>
+    </div>
+    <div id="controls">
+        <span>🎮 <b>P1 操作:</b> A/D 移动 | W 跳跃 | S 防御 | F 攻击</span>
+        <span>🎮 <b>P2 操作:</b> ←/→ 移动 | ↑ 跳跃 | ↓ 防御 | J 攻击</span>
+    </div>
+    <button id="restartBtn" onclick="restartGame()">重新开始</button>
+
+    <script src="game.js"></script>
+</body>
+</html>
